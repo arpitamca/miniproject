@@ -1,0 +1,28 @@
+body {
+    font-family: Poppins, sans-serif;
+    background: #f4f6f8;
+    padding: 30px;
+}
+
+.menu-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.menu-card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+.menu-card button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    background: #7eea0b;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}

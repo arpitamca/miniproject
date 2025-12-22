@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canteen Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+
+<header class="top-bar">
+    <h1>Canteen Dashboard</h1>
+    <p>Welcome {{ name }} 👋 to Canteen Queue System</p>
+</header>
+
+<main class="dashboard">
+
+    <a href="{% url 'menu' %}" class="card">
+        <h2>🍽️ Show Menu</h2>
+        <p>View available food items</p>
+    </a>
+
+    <a href="#" class="card">
+        <h2>🧾 Create Order</h2>
+        <p>Place a new order</p>
+    </a>
+
+    <div class="card info">
+        <h2>🎫 My Token</h2>
+        <p class="big">12</p>
+    </div>
+
+    <div class="card info">
+        <h2>⏱️ Expected Time</h2>
+        <p class="big">15 mins</p>
+    </div>
+
+    <div class="card highlight">
+        <h2>🔄 Running Token</h2>
+        <p class="big">10</p>
+    </div>
+
+</main>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu</title>
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+</head>
+<body>
+
+<h1>🍽️ Menu</h1>
+
+<!-- VEG SECTION -->
+<h2>🟢 Veg</h2>
+<div class="menu-container">
+    {% for item in veg_items %}
+        <div class="menu-card">
+            <h3>{{ item.Item_name }}</h3>
+            <p>₹ {{ item.price }}</p>
+            <form method="POST" action="{% url 'add_to_order' %}">
+                {% csrf_token %}
+                <input type="hidden" name="menu_id" value="{{ item.id }}">
+                <button type="submit">Order</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>No veg items available</p>
+    {% endfor %}
+</div>
+
+<!-- NON-VEG SECTION -->
+<h2>🔴 Non-Veg</h2>
+<div class="menu-container">
+    {% for item in nonveg_items %}
+        <div class="menu-card">
+            <h3>{{ item.Item_name }}</h3>
+            <p>₹ {{ item.price }}</p>
+            <form method="POST" action="{% url 'add_to_order' %}">
+                {% csrf_token %}
+                <input type="hidden" name="menu_id" value="{{ item.id }}">
+                <button type="submit">Order</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>No non-veg items available</p>
+    {% endfor %}
+</div>
+
+<!-- BEVERAGES SECTION -->
+<h2>☕ Beverages</h2>
+<div class="menu-container">
+    {% for item in beverage_items %}
+        <div class="menu-card">
+            <h3>{{ item.Item_name }}</h3>
+            <p>₹ {{ item.price }}</p>
+            <form method="POST" action="{% url 'add_to_order' %}">
+                {% csrf_token %}
+                <input type="hidden" name="menu_id" value="{{ item.id }}">
+                <button type="submit">Order</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>No beverages available</p>
+    {% endfor %}
+</div>
+
+{% comment %} <div class="menu-container">
+    {% for item in menu_items %}
+        <div class="menu-card">
+            <h3>{{ item.Item_name }}</h3>
+            <h3>{{ item.category }}</h3>
+            <p>₹ {{ item.price }}</p>
+            <form method="POST" action="{% url 'add_to_order' %}">
+            {% csrf_token %}
+            <input type="hidden" name="menu_id" value="{{ item.id }}">
+            <button type="submit">Order</button>
+             </form>
+        </div>
+    {% empty %}
+        <p>No items available</p>
+    {% endfor %}
+</div> {% endcomment %}
+
+</body>
+</html>
