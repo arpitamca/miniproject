@@ -109,3 +109,40 @@ def cancel_order(request, order_id):
     messages.success(request, "❌ Order cancelled successfully")
 
     return redirect("my_orders")
+
+
+def admin_dashboard(request):
+    # 🔐 Admin protection
+    if request.session.get("role") != "admin":
+        return redirect("login")
+
+    # All pending orders in token order
+    pending_orders = (
+        Order.objects
+        .filter(status="pending")
+        .order_by("token_number")
+    )
+
+    running_order = pending_orders.first()
+    next_order = pending_orders[1] if pending_orders.count() > 1 else None
+
+    return render(request, "admin/dashboard.html", {
+        "running_token": running_order.token_number if running_order else None,
+        "next_token": next_order.token_number if next_order else None,
+        "pending_count": pending_orders.count(),
+        "orders": pending_orders
+    })
+
+def serve_order(request, order_id):
+    if request.session.get("role") != "admin":
+        return redirect("login")
+
+    try:
+        order = Order.objects.get(id=order_id, status="pending")
+    except Order.DoesNotExist:
+        return redirect("admin_dashboard")
+
+    order.status = "completed"
+    order.save()
+
+    return redirect("admin_dashboard")

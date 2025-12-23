@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render, redirect
  #render shows HTML page, redirect sends user to another URL, 
  # User is imported to create new user
@@ -7,17 +8,26 @@ from .models import User
 def login_view(request):
     error = None
     if request.method == "POST":
-        phone = request.POST.get('phone')
+        email = request.POST.get('email')
         password = request.POST.get('password')
         try:
-            user = User.objects.get(phone=phone, password=password)
+            user = User.objects.get(email=email, password=password)
             request.session['user_id'] = user.id
-            request.session['user_name'] = user.name 
-            return redirect('/home/')
-        except User.DoesNotExist:
-            error = "Invalid phone or password."
+            request.session['user_name'] = user.name
+            request.session['role'] = user.role
 
-    return render(request, 'auth.html', {'error': error})
+            if user.role == "admin":
+                return redirect("admin_dashboard")
+            return redirect("home")
+
+        except User.DoesNotExist:
+            error = "Invalid email or password."
+
+    return render(request, 'auth.html', {
+        'error': error,
+        'active_form': 'login'
+    })
+
 
 def register_view(request):
     if request.method == "POST":
@@ -28,18 +38,28 @@ def register_view(request):
         confirm_password = request.POST.get('confirm_password')
         role = request.POST.get('role')
 
-        if password != confirm_password:
-            error = "Passwords do not match"
-            return render(request, 'auth.html', {'error': error})
+        # Basic validation: ensure required fields present
+        form_context = {
+            'active_form': 'register',
+            'form_data': {
+                'name': name or "",
+                'email': email or "",
+                'phone': phone or "",
+                'role': role or "",
+            }
+        }
 
-        # (Optional but recommended) check duplicate email/phone
+        if not password or not confirm_password or password != confirm_password:
+            form_context['error'] = "Passwords do not match"
+            return render(request, 'auth.html', form_context)
+
         if User.objects.filter(email=email).exists():
-            error = "Email already exists"
-            return render(request, 'auth.html', {'error': error})
+            form_context['error'] = "Email already exists"
+            return render(request, 'auth.html', form_context)
 
         if User.objects.filter(phone=phone).exists():
-            error = "Phone number already exists"
-            return render(request, 'auth.html', {'error': error})
+            form_context['error'] = "Phone number already exists"
+            return render(request, 'auth.html', form_context)
 
         User.objects.create(
             name=name,
@@ -48,11 +68,15 @@ def register_view(request):
             password=password,
             role=role
         )
-        message = "Registration successful. Please log in."
 
         return redirect('login')
 
-    return render(request, 'auth.html') 
+    # 👇 IMPORTANT: GET request
+    return render(request, 'auth.html', {
+        'active_form': 'login'
+    })
+
+
 
 def logout_view(request):
     request.session.flush()   # ✅ clears all session data

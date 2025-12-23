@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    {% if item %}Edit Menu Item{% else %}Add Menu Item{% endif %}
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_menu.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>
+    {% if item %}
+        ✏️ Edit Menu Item
+    {% else %}
+        ➕ Add Menu Item
+    {% endif %}
+</h1>
+
+<a href="{% url 'admin_dashboard' %}" class="btn-back">
+    ⬅ Back to Dashboard
+</a>
+
+<form method="POST" class="menu-form">
+    {% csrf_token %}
+
+    <label>Item Name</label>
+    <input type="text" name="name"
+           value="{{ item.Item_name|default:'' }}"
+           placeholder="Enter item name"
+           required>
+
+    <label>Price</label>
+    <input type="number" name="price"
+           value="{{ item.price|default:'' }}"
+           placeholder="Enter price"
+           required>
+
+    <label>Category</label>
+    <select name="category" required>
+        <option value="">-- Select Category --</option>
+        <option value="veg" {% if item.category == "veg" %}selected{% endif %}>Veg</option>
+        <option value="non veg" {% if item.category == "non veg" %}selected{% endif %}>Non-Veg</option>
+        <option value="beverages" {% if item.category == "beverages" %}selected{% endif %}>Beverages</option>
+    </select>
+
+    {% if item %}
+    <label class="checkbox">
+        <input type="checkbox" name="available"
+               {% if item.available %}checked{% endif %}>
+        Available
+    </label>
+    {% endif %}
+
+    <button type="submit" class="btn-save">
+        💾 Save
+    </button>
+</form>
+
+<a href="{% url 'admin_menu' %}" class="back-link">
+    ⬅ Back to Menu List
+</a>
+
+{% endblock %}

@@ -12,11 +12,18 @@
    PAGE BACKGROUND
    ========================= */
 body {
-    height: 100vh;
-    /* background: url('../images/food.png') center/cover no-repeat; */
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color:  hsl(87, 91%, 36%);
+
+    /* background:
+        linear-gradient(
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.55)
+        ),
+        url("../image/canteendishes.jpg") center/cover no-repeat; */
 }
 
 /* =========================
@@ -134,3 +141,40 @@ body {
     font-weight: 600;
     cursor: pointer;
 }
+
+.right form {
+    display: none;
+}
+
+.right form.active {
+    display: flex;
+    flex-direction: column;
+}
+
+.error-message {
+    background: #fdecea;
+    color: #c62828;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.right span {
+    color: #7eea0b;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* .right-bg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 35%;
+    height: 100%;
+    background: url("../image/pageside.jpeg") center/cover no-repeat;
+    filter: brightness(0.9);
+    z-index: 0;
+} */
+

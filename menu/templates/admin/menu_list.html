@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Manage Menu{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin_menu.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1>🍽 Manage Menu</h1>
+
+<a href="{% url 'admin_dashboard' %}" class="btn-back">
+    ⬅ Back to Dashboard
+</a>
+
+<a href="{% url 'add_menu_item' %}" class="btn-add">
+    ➕ Add New Item
+</a>
+
+<table class="menu-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+    {% for item in items %}
+        <tr>
+            <td>{{ item.Item_name }}</td>
+            <td>₹ {{ item.price }}</td>
+            <td>{{ item.get_category_display }}</td>
+            <td>
+                {% if item.available %}
+                    <span class="status available">Available</span>
+                {% else %}
+                    <span class="status disabled">Disabled</span>
+                {% endif %}
+            </td>
+            <td class="actions">
+                <a href="{% url 'edit_menu_item' item.id %}">✏️ Edit</a>
+                <a href="{% url 'toggle_menu_item' item.id %}">
+                    {% if item.available %}Disable{% else %}Enable{% endif %}
+                </a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="5" class="empty">
+                No menu items found
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
