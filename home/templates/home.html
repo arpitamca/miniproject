@@ -6,6 +6,7 @@
     <title>Canteen Dashboard</title>
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
 </head>
+
 <body>
 
 <header class="top-bar">
@@ -20,27 +21,78 @@
         <p>View available food items</p>
     </a>
 
-    <a href="#" class="card">
-        <h2>🧾 Create Order</h2>
-        <p>Place a new order</p>
+    <a href="{% url 'my_orders' %}" class="card">
+        <h2>🧾 Your Orders</h2>
+        <p>View order history</p>
     </a>
 
+ <!-- MY TOKEN -->
     <div class="card info">
         <h2>🎫 My Token</h2>
-        <p class="big">12</p>
+        <p class="big">
+            {% if my_token %}
+                {{ my_token }}
+            {% else %}
+                --
+            {% endif %}
+        </p>
     </div>
 
-    <div class="card info">
-        <h2>⏱️ Expected Time</h2>
-        <p class="big">15 mins</p>
-    </div>
 
-    <div class="card highlight">
+<div class="card info">
+    <h2>⏱️ Expected Time</h2>
+
+    {% if expected_seconds %}
+        <p class="big" id="countdown"
+           data-seconds="{{ expected_seconds }}">
+            {{ expected_time }} mins
+        </p>
+    {% else %}
+        <p class="big">--</p>
+    {% endif %}
+</div>
+
+    <!-- RUNNING TOKEN -->
+<div class="card highlight">
         <h2>🔄 Running Token</h2>
-        <p class="big">10</p>
+        <p class="big">
+            {% if running_token %}
+                {{ running_token }}
+            {% else %}
+                --
+            {% endif %}
+        </p>
     </div>
 
 </main>
+
+<script>
+(function () {
+    const el = document.getElementById("countdown");
+    if (!el) return;
+
+    let remaining = parseInt(el.dataset.seconds);
+    if (isNaN(remaining) || remaining <= 0) return;
+
+    function formatTime(sec) {
+        const m = Math.floor(sec / 60);
+        const s = sec % 60;
+        return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function tick() {
+        if (remaining <= 0) {
+            el.textContent = "Almost Ready 🍽️";
+            return;
+        }
+        el.textContent = formatTime(remaining);
+        remaining--;
+        setTimeout(tick, 1000);
+    }
+
+    tick();
+})();
+</script>
 
 </body>
 </html>

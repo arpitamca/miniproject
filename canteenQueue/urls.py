@@ -19,7 +19,7 @@ from django.urls import path
 from accounts.views import login_view,register_view
 from home.views import home_view
 from menu.views import menu_view
-from order.views import add_to_order
+from order.views import add_to_order, my_orders_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +27,6 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('register/', register_view, name='register'),
     path('menu/', menu_view, name='menu'),
-    path("add-to-order/", add_to_order, name="add_to_order"),
+    path("add-to-order/<int:menu_id>/", add_to_order, name="add_to_order"),
+    path("my-orders/", my_orders_view, name="my_orders"),
 ]

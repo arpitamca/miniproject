@@ -7,6 +7,23 @@
 </head>
 <body>
 
+    <p style="color:red;">
+    DEBUG messages:
+    {% for m in messages %}
+        [{{ m }}]
+    {% empty %}
+        [NO MESSAGES FOUND]
+    {% endfor %}
+</p>
+
+    {% if messages %}
+<div id="toast" class="toast">
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+</div>
+{% endif %}
+
 <h1>🍽️ Menu</h1>
 
 <!-- VEG SECTION -->
@@ -14,13 +31,11 @@
 <div class="menu-container">
     {% for item in veg_items %}
         <div class="menu-card">
-            <h3>{{ item.Item_name }}</h3>
+            <h3>{{ item.Item_name}}</h3>
             <p>₹ {{ item.price }}</p>
-            <form method="POST" action="{% url 'add_to_order' %}">
-                {% csrf_token %}
-                <input type="hidden" name="menu_id" value="{{ item.id }}">
-                <button type="submit">Order</button>
-            </form>
+            <a href="{% url 'add_to_order' item.id %}" class="order-btn">
+        Order
+    </a>
         </div>
     {% empty %}
         <p>No veg items available</p>
@@ -32,13 +47,11 @@
 <div class="menu-container">
     {% for item in nonveg_items %}
         <div class="menu-card">
-            <h3>{{ item.Item_name }}</h3>
+            <h3>{{ item.Item_name}}</h3>
             <p>₹ {{ item.price }}</p>
-            <form method="POST" action="{% url 'add_to_order' %}">
-                {% csrf_token %}
-                <input type="hidden" name="menu_id" value="{{ item.id }}">
-                <button type="submit">Order</button>
-            </form>
+            <a href="{% url 'add_to_order' item.id %}" class="order-btn">
+        Order
+    </a>
         </div>
     {% empty %}
         <p>No non-veg items available</p>
@@ -50,13 +63,11 @@
 <div class="menu-container">
     {% for item in beverage_items %}
         <div class="menu-card">
-            <h3>{{ item.Item_name }}</h3>
+            <h3>{{ item.Item_name}}</h3>
             <p>₹ {{ item.price }}</p>
-            <form method="POST" action="{% url 'add_to_order' %}">
-                {% csrf_token %}
-                <input type="hidden" name="menu_id" value="{{ item.id }}">
-                <button type="submit">Order</button>
-            </form>
+              <a href="{% url 'add_to_order' item.id %}" class="order-btn">
+        Order
+    </a>
         </div>
     {% empty %}
         <p>No beverages available</p>

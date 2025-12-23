@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: #f5f7fa;
+    padding: 40px;
+}
+
+/* PAGE TITLE */
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+/* ORDER CARD */
+.order-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* ORDER HEADER */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.order-id {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.order-status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* STATUS COLORS */
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-completed {
+    background: #d4edda;
+    color: #155724;
+}
+
+/* ORDER TIME */
+.order-time {
+    font-size: 13px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+/* ITEM LIST */
+.order-items {
+    list-style: none;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+}
+
+.order-items li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+/* ITEM NAME */
+.item-name {
+    font-weight: 500;
+}
+
+/* ITEM QTY */
+.item-qty {
+    font-weight: 600;
+    color: #4caf50;
+}
+
+/* ITEM PRICE */
+.item-price {
+    font-weight: 600;
+}
+
+/* EMPTY STATE */
+.empty-orders {
+    font-size: 16px;
+    color: #666;
+}
+
+/* BACK LINK */
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    text-decoration: none;
+    color: #4caf50;
+    font-weight: 600;
+}
