@@ -10,38 +10,26 @@ body {
     min-height: 100vh;
 }
 
-/* HEADER */
-.top-bar {
-    background: #1c1101;
-    color: #fff;
-    padding: 25px 40px;
-}
-
-.top-bar h1 {
-    font-size: 28px;
-}
-
-.top-bar p {
-    font-size: 14px;
-    opacity: 0.8;
-}
-
 /* DASHBOARD GRID */
 .dashboard {
-    padding: 40px;
+    padding: 48px;
+    margin: 0 auto;
+    max-width: 1200px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    /* increase min card width so cards are larger */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
 }
 
 /* CARD BASE */
 .card {
     background: white;
     border-radius: 16px;
-    padding: 25px;
+    padding: 30px;
+    min-height: 220px; /* make cards taller */
     text-decoration: none;
     color: #333;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.10);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -51,8 +39,9 @@ body {
 }
 
 .card h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 20px;
+    margin-bottom: 14px;
+    font-weight: 700;
 }
 
 .card p {
@@ -74,7 +63,7 @@ body {
 
 /* BIG TEXT */
 .big {
-    font-size: 36px;
-    font-weight: 700;
-    margin-top: 10px;
+    font-size: 40px;
+    font-weight: 800;
+    margin-top: 12px;
 }

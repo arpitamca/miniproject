@@ -60,7 +60,8 @@ def my_orders_view(request):
 
     user = User.objects.get(id=user_id)
 
-    orders = Order.objects.filter(user=user).order_by("created_at")
+    # order by created_at descending
+    orders = Order.objects.filter(user=user).order_by("-created_at")
 
     current_order = (
         Order.objects

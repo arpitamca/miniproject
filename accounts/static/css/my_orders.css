@@ -8,7 +8,12 @@
 body {
     min-height: 100vh;
     background: #f5f7fa;
+}
+
+main {
     padding: 40px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
 /* PAGE TITLE */
@@ -105,10 +110,42 @@ body {
 }
 
 /* BACK LINK */
-.back-link {
-    display: inline-block;
-    margin-top: 30px;
-    text-decoration: none;
-    color: #4caf50;
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 16px;
+    margin-bottom: 16px;
+
+    background: #e8f5e9;
+    color: #1b5e20;
+
+    border-radius: 10px;
     font-weight: 600;
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+    background: #c8e6c9;
+    transform: translateX(-3px);
+}
+
+/* CANCEL BUTTON */
+.cancel-btn {
+    background: #f44336;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.cancel-btn:hover {
+    background: #d32f2f;
 }

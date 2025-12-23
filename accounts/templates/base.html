@@ -15,12 +15,15 @@
 <!-- ✅ HEADER -->
 <header class="top-bar">
     <div class="container">
-        <h1>Canteen Dashboard</h1>
-        <p class="greeting">Welcome {{ name|default:"User" }} 👋 to Canteen Queue System</p>
-                <form method="POST" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit" class="logout-btn">Logout</button>
-        </form>
+        <h1>Welcome to CanteenQ</h1>
+        <div class="spacer"></div>
+        <div class="header-right">
+            <p class="greeting">Welcome {{ name|default:"User" }} 👋</p>
+            <form method="POST" action="{% url 'logout' %}" style="margin: 0;">
+                {% csrf_token %}
+                <button type="submit" class="logout-btn">Logout</button>
+            </form>
+        </div>
     </div>
 </header>
 

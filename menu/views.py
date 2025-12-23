@@ -17,8 +17,6 @@ from menu.models import MenuItem
 def menu_view(request):
     veg_items = MenuItem.objects.filter(category='veg', available=True)
 
-    print("DEBUG TYPE:", type(veg_items.first()))
-    print("DEBUG ITEM:", veg_items.first())
     veg_items = MenuItem.objects.filter(
         category='veg',
         available=True

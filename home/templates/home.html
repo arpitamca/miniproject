@@ -1,20 +1,15 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Canteen Dashboard</title>
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-</head>
 
-<body>
+{% block title %}Canteen Dashboard{% endblock %}
 
-<header class="top-bar">
-    <h1>Canteen Dashboard</h1>
-    <p>Welcome {{ name }} 👋 to Canteen Queue System</p>
-</header>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
 
-<main class="dashboard">
+{% block content %}
+
+<div class="dashboard">
 
     <a href="{% url 'menu' %}" class="card">
         <h2>🍽️ Show Menu</h2>
@@ -53,7 +48,7 @@
 </div>
 
     <!-- RUNNING TOKEN -->
-<div class="card highlight">
+<div class="card info">
         <h2>🔄 Running Token</h2>
         <p class="big">
             {% if running_token %}
@@ -64,8 +59,11 @@
         </p>
     </div>
 
-</main>
+</div>
 
+{% endblock %}
+
+{% block extra_js %}
 <script>
 (function () {
     const el = document.getElementById("countdown");
@@ -93,6 +91,4 @@
     tick();
 })();
 </script>
-
-</body>
-</html>
+{% endblock %}

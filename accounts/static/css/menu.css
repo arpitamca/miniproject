@@ -111,3 +111,31 @@ h2 {
         transform: translateY(-20px);
     }
 }
+
+
+/* Home button */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 16px;
+    margin-bottom: 16px;
+
+    background: #e8f5e9;
+    color: #1b5e20;
+
+    border-radius: 10px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: all 0.25s ease;
+}
+
+.btn-back:hover {
+    background: #c8e6c9;
+    transform: translateX(-3px);
+}
+
+
+
