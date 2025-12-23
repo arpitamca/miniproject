@@ -3,11 +3,21 @@ from django.db import models
 from accounts.models import User
 from menu.models import MenuItem
 
+STATUS_CHOICES = [
+    ('pending', 'Pending'),
+    ('completed', 'Completed'),
+    ('cancelled', 'Cancelled'),
+]
+
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=20, default="pending")
     token_number = models.IntegerField(null=True, blank=True)  # 🎫 TOKEN
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending'
+    )
 
     def __str__(self):
         return f"Order {self.id} - {self.user.name}"

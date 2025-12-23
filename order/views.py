@@ -9,6 +9,8 @@ from .models import MenuItem, Order, OrderItem
 AVERAGE_PREP_TIME = 5
 
 def add_to_order(request, menu_id):
+    if request.method != "POST":
+        return redirect("menu")
     # ✅ ALWAYS return response
     user_id = request.session.get("user_id")
     if not user_id:
@@ -84,3 +86,26 @@ def my_orders_view(request):
         "orders": orders,
         "current_token": current_order.token_number if current_order else None
     })
+
+def cancel_order(request, order_id):
+    user_id = request.session.get("user_id")
+    if not user_id:
+        return redirect("login")
+
+    try:
+        order = Order.objects.get(
+            id=order_id,
+            user_id=user_id,
+            status="pending"
+        )
+    except Order.DoesNotExist:
+        messages.error(request, "❌ Order cannot be cancelled")
+        return redirect("my_orders")
+
+    order.status = "cancelled"
+    order.token_number = None
+    order.save()
+
+    messages.success(request, "❌ Order cancelled successfully")
+
+    return redirect("my_orders")

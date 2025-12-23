@@ -1,0 +1,58 @@
+/* basic resets */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;height:100%}
+
+/* container to center content and limit width */
+.container{max-width:1100px;margin:0 auto;padding:0 16px}
+
+/* top bar */
+.top-bar{
+margin-top: -31px;
+margin-left: -31px;
+  background:#0f1724; /* adjust color as needed */
+  color:#fff;
+  position:sticky;
+  top:0;
+  z-index:50;
+  width:104%;
+  box-shadow:0 1px 4px rgba(0,0,0,0.08);
+}
+.top-bar .container{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 0;
+}
+.top-bar h1{font-size:1.25rem;margin:0}
+.top-bar .greeting{margin:0;color:#cbd5e1;font-size:0.95rem}
+
+/* main spacing so content isn't flush to edges */
+main{padding:20px;}
+
+/* responsive adjustments */
+@media (max-width:700px){
+  .top-bar .container{flex-direction:column;align-items:flex-start;padding:10px 0}
+  .top-bar h1{font-size:1.05rem}
+  .top-bar .greeting{font-size:0.9rem}
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logout-btn {
+    background: #c62828;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.logout-btn:hover {
+    background: #b71c1c;
+}

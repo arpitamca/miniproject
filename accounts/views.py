@@ -54,3 +54,6 @@ def register_view(request):
 
     return render(request, 'auth.html') 
 
+def logout_view(request):
+    request.session.flush()   # ✅ clears all session data
+    return redirect("login")

@@ -1,95 +1,94 @@
+{% extends "base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Menu</title>
-    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
-</head>
-<body>
 
-    <p style="color:red;">
-    DEBUG messages:
-    {% for m in messages %}
-        [{{ m }}]
-    {% empty %}
-        [NO MESSAGES FOUND]
-    {% endfor %}
-</p>
+{% block title %}Menu | Canteen{% endblock %}
 
-    {% if messages %}
-<div id="toast" class="toast">
-    {% for message in messages %}
-        {{ message }}
-    {% endfor %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/menu.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- 🔔 TOAST -->
+{% if messages %}
+<div id="toast-overlay">
+    <div id="toast" class="toast">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
 </div>
 {% endif %}
 
 <h1>🍽️ Menu</h1>
 
-<!-- VEG SECTION -->
+  <a href="{% url 'home' %}" class="back-link">
+      ⬅ Back to Home
+  </a>
+
+<!-- VEG -->
 <h2>🟢 Veg</h2>
 <div class="menu-container">
     {% for item in veg_items %}
         <div class="menu-card">
-            <h3>{{ item.Item_name}}</h3>
+            <h3>{{ item.Item_name }}</h3>
             <p>₹ {{ item.price }}</p>
-            <a href="{% url 'add_to_order' item.id %}" class="order-btn">
-        Order
-    </a>
+
+            <form method="POST" action="{% url 'add_to_order' item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="order-btn">Order</button>
+            </form>
         </div>
     {% empty %}
         <p>No veg items available</p>
     {% endfor %}
 </div>
 
-<!-- NON-VEG SECTION -->
+<!-- NON-VEG -->
 <h2>🔴 Non-Veg</h2>
 <div class="menu-container">
     {% for item in nonveg_items %}
         <div class="menu-card">
-            <h3>{{ item.Item_name}}</h3>
+            <h3>{{ item.Item_name }}</h3>
             <p>₹ {{ item.price }}</p>
-            <a href="{% url 'add_to_order' item.id %}" class="order-btn">
-        Order
-    </a>
+
+            <form method="POST" action="{% url 'add_to_order' item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="order-btn">Order</button>
+            </form>
         </div>
     {% empty %}
         <p>No non-veg items available</p>
     {% endfor %}
 </div>
 
-<!-- BEVERAGES SECTION -->
+<!-- BEVERAGES -->
 <h2>☕ Beverages</h2>
 <div class="menu-container">
     {% for item in beverage_items %}
         <div class="menu-card">
-            <h3>{{ item.Item_name}}</h3>
+            <h3>{{ item.Item_name }}</h3>
             <p>₹ {{ item.price }}</p>
-              <a href="{% url 'add_to_order' item.id %}" class="order-btn">
-        Order
-    </a>
+
+            <form method="POST" action="{% url 'add_to_order' item.id %}">
+                {% csrf_token %}
+                <button type="submit" class="order-btn">Order</button>
+            </form>
         </div>
     {% empty %}
         <p>No beverages available</p>
     {% endfor %}
 </div>
 
-{% comment %} <div class="menu-container">
-    {% for item in menu_items %}
-        <div class="menu-card">
-            <h3>{{ item.Item_name }}</h3>
-            <h3>{{ item.category }}</h3>
-            <p>₹ {{ item.price }}</p>
-            <form method="POST" action="{% url 'add_to_order' %}">
-            {% csrf_token %}
-            <input type="hidden" name="menu_id" value="{{ item.id }}">
-            <button type="submit">Order</button>
-             </form>
-        </div>
-    {% empty %}
-        <p>No items available</p>
-    {% endfor %}
-</div> {% endcomment %}
+{% endblock %}
 
-</body>
-</html>
+{% block extra_js %}
+<script>
+    const toast = document.getElementById("toast");
+    if (toast) {
+        setTimeout(() => {
+            toast.parentElement.remove();
+        }, 3000);
+    }
+</script>
+{% endblock %}
